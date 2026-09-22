@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   DESIGN TOKENS — Auto Premium Lab
+   Identidad provisional: grafito premium + acento "ignition orange"
+   (energía mecánica / CTA) + acento "ambient cyan" (iluminación /
+   personalización). Sustituir aquí cuando exista marca definitiva.
+--------------------------------------------------------------------- */
+
+:root {
+  --color-ink: #0a0a0c;
+  --color-surface: #131316;
+  --color-surface-2: #1b1c21;
+  --color-line: #27282d;
+  --color-foreground: #f5f5f3;
+  --color-muted: #9a9aa3;
+  --color-muted-2: #6c6d75;
+
+  --color-accent: #ff4d1c;
+  --color-accent-soft: #ff8a54;
+  --color-accent-2: #33e1ff;
+  --color-accent-2-soft: #8ff1ff;
+
+  --color-success: #34d399;
+
+  --font-display: var(--font-sora);
+  --font-body: var(--font-inter);
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-line: var(--color-line);
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-2: var(--color-muted-2);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-accent-2: var(--color-accent-2);
+  --color-accent-2-soft: var(--color-accent-2-soft);
+  --color-success: var(--color-success);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 999px;
+  border: 2px solid var(--color-ink);
+}
+
+/* Textura de grano sutil para dar profundidad premium a fondos oscuros */
+.bg-grain {
+  position: relative;
+  isolation: isolate;
+}
+.bg-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Malla de gradiente de marca, usada en hero y CTAs */
+.bg-mesh {
+  background-image:
+    radial-gradient(60% 50% at 15% 10%, color-mix(in srgb, var(--color-accent) 22%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 45% at 85% 20%, color-mix(in srgb, var(--color-accent-2) 18%, transparent) 0%, transparent 60%),
+    radial-gradient(70% 60% at 50% 100%, color-mix(in srgb, var(--color-accent) 10%, transparent) 0%, transparent 70%);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-soft) 45%, var(--color-accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card-glow {
+  transition: box-shadow 0.4s ease, transform 0.4s ease, border-color 0.4s ease;
+}
+.card-glow:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-line));
+  box-shadow: 0 20px 60px -20px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+.animate-marquee {
+  animation: var(--animate-marquee);
+}
+.animate-pulse-soft {
+  animation: var(--animate-pulse-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee,
+  .animate-pulse-soft {
+    animation: none;
+  }
+}
