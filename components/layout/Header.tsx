@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, MessageCircle, Wrench } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { cn } from "@/lib/utils";
 import { business, buildWhatsappUrl, navLinks } from "@/lib/site-config";
 
@@ -44,9 +45,7 @@ export function Header() {
             className="group flex items-center gap-2.5"
             onClick={() => setOpen(false)}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-ink transition-transform duration-300 group-hover:rotate-[-8deg]">
-              <Wrench className="h-5 w-5" strokeWidth={2.25} />
-            </span>
+            <LogoMark className="h-9 w-9 transition-transform duration-300 group-hover:rotate-[-8deg]" />
             <span className="font-display text-lg font-bold tracking-tight text-foreground">
               {business.name}
             </span>

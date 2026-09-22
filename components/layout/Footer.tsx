@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, Wrench } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { InstagramIcon, FacebookIcon, TikTokIcon } from "@/components/ui/SocialIcons";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { business, navLinks } from "@/lib/site-config";
 
 export function Footer() {
@@ -10,9 +11,7 @@ export function Footer() {
       <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-1">
           <div className="mb-4 flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-ink">
-              <Wrench className="h-5 w-5" strokeWidth={2.25} />
-            </span>
+            <LogoMark className="h-9 w-9" />
             <span className="font-display text-lg font-bold text-foreground">
               {business.name}
             </span>
@@ -114,9 +113,14 @@ export function Footer() {
             © {new Date().getFullYear()} {business.name}. Todos los derechos
             reservados.
           </p>
-          <p>
-            {business.city ? `${business.city} · ` : ""}
-            {business.workingArea}
+          <p className="flex items-center gap-3">
+            <span>
+              {business.city ? `${business.city} · ` : ""}
+              {business.workingArea}
+            </span>
+            <Link href="/logo" className="transition-colors hover:text-foreground">
+              Kit de marca
+            </Link>
           </p>
         </Container>
       </div>

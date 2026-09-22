@@ -29,6 +29,7 @@ Cada apartado principal es una ruta propia (no anclas en una sola página):
 | `/trabajos`       | `app/trabajos/page.tsx`         | Galería completa con filtros                  |
 | `/sobre-nosotros` | `app/sobre-nosotros/page.tsx`   | Historia del negocio                          |
 | `/contacto`       | `app/contacto/page.tsx`         | Formulario + WhatsApp + llamada + horario     |
+| `/logo`           | `app/logo/page.tsx`             | Kit de marca (fuera del menú principal)       |
 
 El Home no repite el contenido completo de cada apartado: muestra una
 versión resumida ("teaser") con un botón "Ver todo/Conócenos mejor" que
@@ -49,6 +50,8 @@ app/
   trabajos/page.tsx         Página de galería/trabajos
   sobre-nosotros/page.tsx   Página "sobre nosotros"
   contacto/page.tsx         Página de presupuesto/contacto
+  logo/page.tsx              Kit de marca
+  icon.svg                   Favicon (convención de Next.js)
   globals.css               Tokens de diseño (Tailwind v4 @theme), utilidades visuales
   sitemap.ts, robots.ts
 
@@ -61,12 +64,16 @@ components/
              (versiones resumidas para el Home y cierre de cada subpágina)
   ui/        Button, Container, SectionHeading, Reveal (scroll animations),
              Badge, VisualPlaceholder, SocialIcons
+  brand/     LogoMark (el logo, como componente vectorial)
 
 lib/
   site-config.ts      Toda la configuración del negocio: contacto, horario, redes,
                        navegación, servicios y contenido de la galería.
                        Editar aquí, no en los componentes.
   utils.ts
+
+public/brand/          Logo en SVG descargable (ver punto 7)
+marketing/instagram/    Material de marketing para redes (ver punto 8)
 ```
 
 ## 1. Placeholders pendientes de rellenar
@@ -203,9 +210,60 @@ La arquitectura ya está pensada para añadir sin rehacer nada:
   `app/globals.css`.
 - **Tipografía:** Sora (`--font-display`, títulos) + Inter (`--font-body`,
   texto). Cargadas vía `next/font/google` en `app/layout.tsx`.
-- **Logo:** icono de llave inglesa como marca provisional — sustituir por
-  el logo definitivo en `Header.tsx` y `Footer.tsx` cuando exista.
+- **Logo:** monograma "A" vectorial (`components/brand/LogoMark.tsx`),
+  ver punto 7.
 
 Todo esto es intencionadamente fácil de reemplazar: cambiar los valores en
 `:root` de `globals.css` (color) o el import de fuente en `layout.tsx`
 (tipografía) actualiza toda la web.
+
+## 7. Logo y kit de marca
+
+El logo es un componente vectorial real (no un icono genérico ni una
+imagen), pensado para poder evolucionar sin rehacer la identidad:
+
+- `components/brand/LogoMark.tsx` — el símbolo, como componente React.
+  `variant="badge"` (insignia con degradado, uso por defecto) o
+  `variant="mono"` (un solo color, vía `currentColor`, para fondos
+  claros/oscuros/foto). Se usa en `Header.tsx` y `Footer.tsx`.
+- `app/icon.svg` — favicon (convención nativa de Next.js: se sirve solo,
+  no hace falta enlazarlo a mano).
+- `public/brand/` — versiones descargables en SVG (insignia en color,
+  símbolo mono blanco, símbolo mono oscuro), listas para redes sociales,
+  rótulos, etc.
+- **`/logo`** — página con la guía de marca completa: versiones del
+  logo, paleta de color, tipografía, espacio de seguridad, qué evitar y
+  descargas. No está en el menú principal (es una página de referencia,
+  no de cliente) pero sí enlazada desde el pie de página ("Kit de
+  marca"), y no se indexa en buscadores (`robots: noindex` en su
+  metadata).
+
+Para reemplazar el logo por uno definitivo: sustituir el contenido de
+`LogoMark.tsx`, `app/icon.svg` y los archivos de `public/brand/` — el
+resto de la web (header, footer, favicon, página `/logo`) se actualiza
+solo porque todos usan el mismo componente/archivos.
+
+## 8. Material de marketing
+
+`marketing/instagram/` (fuera de `app/`, no forma parte de la web
+desplegada — son artefactos de diseño, no páginas):
+
+- `servicios-post.html` — plantilla editable de un post de Instagram
+  (1080×1350) que resume los 4 bloques de servicios y el mensaje "consulta
+  cualquier cosa", con la misma paleta/tipografía/iconos que la web.
+- `servicios-post.png` — versión ya renderizada (2160×2700, @2x), lista
+  para subir a Instagram.
+
+Para editarlo: modificar `servicios-post.html` (es HTML/CSS plano, sin
+build) y volver a exportarlo a PNG, por ejemplo abriéndolo en el
+navegador y haciendo una captura, o con Playwright:
+
+```bash
+npx playwright screenshot --viewport-size=1080,1350 \
+  marketing/instagram/servicios-post.html \
+  marketing/instagram/servicios-post.png
+```
+
+Como en el resto de la web, los teléfonos/redes que aparecen son
+placeholders (`[TELÉFONO]`, `[WHATSAPP]`, `[INSTAGRAM]`...) — sustituir
+por los datos reales antes de publicarlo.

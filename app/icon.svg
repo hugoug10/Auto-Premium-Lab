@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="apl-grad" x1="4" y1="4" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF4D1C" />
+      <stop offset="1" stop-color="#33E1FF" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#apl-grad)" />
+  <path d="M17 48 L32 15 L47 48" stroke="#0A0A0C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M23.5 37 L40.5 37" stroke="#0A0A0C" stroke-width="7" stroke-linecap="round" />
+  <circle cx="32" cy="37" r="2.4" fill="#F5F5F3" />
+</svg>
