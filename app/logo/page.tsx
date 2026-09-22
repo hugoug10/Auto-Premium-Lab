@@ -8,7 +8,7 @@ import { business } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Logo",
-  description: `Kit de marca de ${business.name}: logotipo, versiones, colores y tipografía.`,
+  description: `Kit de marca de ${business.name}: logotipo, versiones, colores, tipografía y material de marketing.`,
   robots: { index: false, follow: false },
 };
 
@@ -244,6 +244,53 @@ export default function LogoPage() {
               sin perder calidad, desde el favicon hasta un rótulo del
               taller.
             </p>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Marketing */}
+      <section className="bg-ink py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Marketing"
+            title="Cartel para Instagram"
+            description="Un post (1080×1350) que resume los servicios con la misma identidad visual. Los datos de contacto son placeholders — sustituir antes de publicarlo."
+          />
+          <Reveal delay={0.1}>
+            <div className="mt-10 grid gap-6 lg:grid-cols-[0.55fr_1fr] lg:items-center">
+              <a
+                href="/marketing/instagram-servicios.png"
+                download
+                className="card-glow group block overflow-hidden rounded-2xl border border-line bg-surface"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/marketing/instagram-servicios.png"
+                  alt="Cartel de Instagram con los servicios de Auto Premium Lab"
+                  className="w-full"
+                />
+              </a>
+              <div>
+                <p className="text-sm leading-relaxed text-muted">
+                  Pensado para publicarse tal cual en el feed de Instagram
+                  (relación 4:5, la que más espacio ocupa en pantalla).
+                  Incluye las 4 categorías de servicios y el mensaje de
+                  &quot;consulta cualquier cosa&quot;.
+                </p>
+                <a
+                  href="/marketing/instagram-servicios.png"
+                  download
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground/80 hover:text-accent-soft"
+                >
+                  <Download className="h-4 w-4" />
+                  Descargar imagen (PNG)
+                </a>
+                <p className="mt-4 text-xs text-muted-2">
+                  Editable en <code>marketing/instagram/servicios-post.html</code>{" "}
+                  (código fuente del proyecto).
+                </p>
+              </div>
+            </div>
           </Reveal>
         </Container>
       </section>
